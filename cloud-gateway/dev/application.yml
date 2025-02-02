@@ -1,0 +1,63 @@
+server:
+  port: 8085
+
+spring:
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: account-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v1/accounts/**
+        - id: transaction-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/v1/transactions/**
+        - id: credit-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/v1/credits/**
+        - id: customer-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/v1/customers/**
+        - id: card-service
+          uri: http://localhost:8087
+          predicates:
+            - Path=/v1/cards/**
+        - id: wallet-service
+          uri: http://localhost:8091
+          predicates:
+            - Path=/v1/wallets/**
+        - id: bootcoin-service
+          uri: http://localhost:8092
+          predicates:
+            - Path=/v1/bootcoin/**
+        - id: user-service
+          uri: http://localhost:8093
+          predicates:
+            - Path=/v1/user/**
+
+logging:
+  level:
+    org.springframework:
+      cloud.gateway: TRACE
+      http.server.reactive: DEBUG
+      web.reactive: DEBUG
+    reactor:
+      ipc.netty: DEBUG
+      netty: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+
+jwt:
+  secret-key: 4qhq8LrBfycaRHXhd4sjkfsjdkko77890sd9s9s9sdnsj92237kitreuiotrewk4qhq8LrBfycaRHXhd4sjkfsjdkko77890sd9s9s9sdnsj92237kitreuiotrewk
