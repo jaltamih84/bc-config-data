@@ -22,30 +22,30 @@ spring:
       password: admin
       authentication-database: mongodb
 
-  cloud:
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://localhost:8761/eureka/ 
-          #defaultZone: http://host.docker.internal:8761/eureka/
-        fetchRegistry: true 
-        registerWithEureka: true  
-        enabled: true
+#  cloud:
+#    eureka:
+#      client:
+#        serviceUrl:
+#          defaultZone: http://localhost:8761/eureka/
+#          #defaultZone: http://host.docker.internal:8761/eureka/
+#        fetchRegistry: true
+#        registerWithEureka: true
+#        enabled: true
         
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      auto-offset-reset: earliest
-    properties:
-      security:
-        protocol: PLAINTEXT
-      sasl:
-        mechanism: PLAIN
-        jaas:
-          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin-secret"
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      auto-offset-reset: earliest
+#    properties:
+#      security:
+#        protocol: PLAINTEXT
+#      sasl:
+#        mechanism: PLAIN
+#        jaas:
+#          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="admin" password="admin-secret"
 
 resilience4j:
   circuitbreaker:
