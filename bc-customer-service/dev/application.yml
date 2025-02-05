@@ -4,12 +4,16 @@ server:
 spring:
   profiles:
     active: dev
+
   data:
     mongodb:
-      auto-index-creation: true
-      #uri: mongodb://host.docker.internal:27017/
-      uri: mongodb://localhost:27017/
-      database: customer-service
+      host: localhost
+      port: 27017
+      database: mongodb
+      username: mongoadmin
+      password: admin
+      authentication-database: mongodb
+
       
   cloud:
     eureka:
