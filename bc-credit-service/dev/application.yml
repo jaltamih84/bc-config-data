@@ -1,0 +1,59 @@
+server:
+  port: 8084
+spring:
+  profiles:
+    active: dev
+  data:
+    mongodb:
+      auto-index-creation: true
+      #uri: mongodb://host.docker.internal:27017/
+      uri: mongodb://localhost:27017/
+      database: credit-service
+
+  cloud:
+    eureka:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/ 
+          #defaultZone: http://host.docker.internal:8761/eureka/ 
+        fetchRegistry: true 
+        registerWithEureka: true  
+        enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        eventConsumerBufferSize: 10
+        registerHealthIndicator: true
+    instances:
+      credit-service:
+        baseConfig: default
+  retry:
+    configs:
+      default:
+        maxAttempts: 3
+        waitDuration: 1s
+    instances:
+      credit-service:
+        baseConfig: default
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 2s
+        cancelRunningFuture: true
+    instances:
+      credit-service:
+        baseConfig: default
+
+feign:
+  client:
+    config:
+      transaction-service:
+        url: http://localhost:8083
